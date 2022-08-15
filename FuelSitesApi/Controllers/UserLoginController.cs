@@ -10,9 +10,6 @@ namespace FuelSitesApi.Controllers
     {
         private static User user = new User { UserName = "fahad", Password = "123" };
            
-
-
-
         [HttpPost]
         public ActionResult Login(User user)
         {

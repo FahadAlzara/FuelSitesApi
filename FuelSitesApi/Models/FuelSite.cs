@@ -1,7 +1,10 @@
-﻿namespace FuelSitesApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FuelSitesApi.Models
 {
     public class FuelSite
     {
+        [Key]
         public int SiteId { get; set; }
         public int PumpCount { get; set; }
         public int WorkersCount { get; set; }   
