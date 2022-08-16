@@ -17,7 +17,7 @@ namespace FuelSitesApi.Services
         public bool Login(User user)
         {
             var ExistUser = _context.Users.FirstOrDefault(u => u.UserName == user.UserName
-                && u.Password == user.Password && user.Deleted == false);
+                && u.Password == user.Password && !u.Deleted);
             if(ExistUser == null)
             {
                 return false;

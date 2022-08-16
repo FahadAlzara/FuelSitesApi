@@ -25,9 +25,10 @@ namespace FuelSitesApi.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(UserLoginDTO user)
         {
-            if (!(_services.Login(user)))
+            var userMapped = _mapper.Map<User>(user);
+            if (!(_services.Login(userMapped)))
             {
                 return BadRequest("not found");
             }
@@ -47,7 +48,7 @@ namespace FuelSitesApi.Controllers
         public ActionResult Delete(int userId)
         {
             _services.Delete(userId);
-            return Ok();
+            return Ok("User deleted");
         }
 
         [HttpPatch]
