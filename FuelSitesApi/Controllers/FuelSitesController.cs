@@ -1,4 +1,5 @@
 ﻿global using FuelSitesApi.Models;
+using FuelSitesApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,33 +10,37 @@ namespace FuelSitesApi.Controllers
     public class FuelSitesController : ControllerBase
     {
         private readonly DataContext context;
+        private readonly FuelSitesServices _services;
 
-        public FuelSitesController(DataContext context)
+        public FuelSitesController(DataContext context
+            , FuelSitesServices services)
         {
             this.context = context;
+            _services = services;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<FuelSite>>> Get()
+        public ActionResult<List<FuelSite>> Get()
         {
-            return Ok(await context.FuelSites.ToListAsync());
+            return Ok(_services.Get());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FuelSite>> Get(int id)
-        {   
-            var site = await context.FuelSites.FindAsync(id);
+        public ActionResult<FuelSite> GetById(int id)
+        {
+            var site = _services.GetById(id);
             if (site == null)
+            {
                 return BadRequest("Site not found");
+            }
             return Ok(site);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<FuelSite>>> AddSite(FuelSite site)
+        public ActionResult<List<FuelSite>> Add(FuelSite site)
         {
-            context.FuelSites.Add(site);
-            await context.SaveChangesAsync();
-            return Ok(await context.FuelSites.ToListAsync());
+            _services.Add(site);
+            return Ok();
         }
     }
 }

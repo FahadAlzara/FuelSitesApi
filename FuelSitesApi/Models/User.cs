@@ -1,8 +1,13 @@
-﻿namespace FuelSitesApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FuelSitesApi.Models
 {
     public class User
     {
+        [Key]
+        public int Id { get; set; }
         public string UserName { get; set; }    
-        public string Password { get; set; }    
+        public string Password { get; set; }
+        public bool Deleted { get; set; } = false;
     }
 }
