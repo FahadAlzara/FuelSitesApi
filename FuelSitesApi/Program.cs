@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddTransient<FuelSitesServices>();
 builder.Services.AddTransient<UserLoginServices>();
 
